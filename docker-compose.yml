@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  banbrick.api:
+    image: banbrick.api
+    build:
+      context: .
+      dockerfile: BanBrick.API/Dockerfile
