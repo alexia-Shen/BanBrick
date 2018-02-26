@@ -5,4 +5,4 @@ services:
     image: banbrick.api
     build:
       context: .
-      dockerfile: BanBrick.API/Dockerfile
+      dockerfile: src/BanBrick.Presentation.Web/Dockerfile
