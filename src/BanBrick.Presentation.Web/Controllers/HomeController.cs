@@ -10,7 +10,7 @@ namespace BanBrick.Presentation.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(BanBrickMySqlContext context)
+        public HomeController(MySqlContext context)
         {
             context.DeliveryServices.ToList();
         }

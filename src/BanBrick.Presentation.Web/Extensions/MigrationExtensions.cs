@@ -1,12 +1,7 @@
-﻿using BanBrick.Infrastructure.Repositories.Extensions;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Threading.Tasks;
+using Rissole.EntityFramework.Extensions;
 
 namespace BanBrick.Presentation.Web.Extensions
 {

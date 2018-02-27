@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rissole.EntityFramework;
 
 namespace BanBrick.Presentation.WebSite
 {
@@ -26,8 +27,9 @@ namespace BanBrick.Presentation.WebSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<BanBrickMySqlContext>(options => options.UseMySQL(Configuration.GetConnectionString("BanBrickMySqlConnection")));
-            
+            services.AddDbContext<MySqlContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+            services.AddScoped<IBanBrickContext, BanBrickContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +37,7 @@ namespace BanBrick.Presentation.WebSite
         {
             if (env.IsDevelopment())
             {
-                app.UseMigration<BanBrickMySqlContext>();
+                app.UseMigration<MySqlContext>();
 
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions

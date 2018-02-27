@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BanBrick.Infrastructure.Repositories;
+using BanBrick.Infrastructure.Repositories.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BanBrick.Presentation.WebSite.Controllers

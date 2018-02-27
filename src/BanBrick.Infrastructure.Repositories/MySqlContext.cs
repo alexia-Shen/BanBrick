@@ -4,11 +4,13 @@ using System;
 
 namespace BanBrick.Infrastructure.Repositories
 {
-    public class BanBrickMySqlContext: DbContext
+    public class MySqlContext: DbContext
     {
-        public BanBrickMySqlContext(DbContextOptions<BanBrickMySqlContext> options):base(options) { }
+        public MySqlContext(DbContextOptions<MySqlContext> options):base(options) { }
         
         public virtual DbSet<DeliveryService> DeliveryServices { get; set; }
+
+        public virtual DbSet<Restaurant> Restaurants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder) {
 
