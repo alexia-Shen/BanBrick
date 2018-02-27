@@ -1,4 +1,4 @@
-﻿using BanBrick.Infrastructure.Repositories.Models;
+﻿using BanBrick.Infrastructure.Repositories.MySql.Models;
 using Rissole.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BanBrick.Infrastructure.Repositories
 {
-    public interface IBanBrickContext
+    public interface IBanBrickMySqlFacade
     {
         void SaveChanges();
 

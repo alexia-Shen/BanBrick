@@ -1,4 +1,5 @@
-﻿using BanBrick.Infrastructure.Repositories.Models;
+﻿using BanBrick.Infrastructure.Repositories.MySql;
+using BanBrick.Infrastructure.Repositories.MySql.Models;
 using Microsoft.EntityFrameworkCore;
 using Rissole.EntityFramework;
 using Rissole.EntityFramework.Extensions;
@@ -9,15 +10,14 @@ using System.Threading.Tasks;
 
 namespace BanBrick.Infrastructure.Repositories
 {
-    public class BanBrickContext: IBanBrickContext
+    public class BanBrickMySqlFacade: IBanBrickMySqlFacade
     {
-        private MySqlContext _context;
+        private BanBrickMySqlContext _context;
 
         private Lazy<IGenericRepository<Restaurant>> _restaurantRepository => _context.Restaurants.GetLazyRepository();
         private Lazy<IGenericRepository<DeliveryService>> _deliveryServiceRepository => _context.DeliveryServices.GetLazyRepository();
-
-
-        public BanBrickContext(MySqlContext context)
+        
+        public BanBrickMySqlFacade(BanBrickMySqlContext context)
         {
             _context = context;
         }

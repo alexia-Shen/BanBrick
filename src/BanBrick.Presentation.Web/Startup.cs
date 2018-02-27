@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BanBrick.Infrastructure.Repositories;
+using BanBrick.Infrastructure.Repositories.Mongo;
+using BanBrick.Infrastructure.Repositories.MySql;
 using BanBrick.Presentation.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,9 +29,11 @@ namespace BanBrick.Presentation.WebSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<MySqlContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-            services.AddScoped<IBanBrickContext, BanBrickContext>();
+            services.AddDbContext<BanBrickMySqlContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+            services.AddMongoContext<BanBrickMongoContext>(options => options.UseConnection(Configuration.GetConnectionString("MySqlConnection")));
 
+            services.AddScoped<IBanBrickMySqlFacade, BanBrickMySqlFacade>();
+            services.AddScoped<IBanBrickMongoFacade, BanBrickMongoFacade>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +41,7 @@ namespace BanBrick.Presentation.WebSite
         {
             if (env.IsDevelopment())
             {
-                app.UseMigration<MySqlContext>();
+                app.UseMigration<BanBrickMySqlContext>();
 
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions

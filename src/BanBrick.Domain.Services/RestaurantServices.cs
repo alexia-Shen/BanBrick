@@ -7,7 +7,7 @@ namespace BanBrick.Domain.Services
 {
     public class RestaurantServices
     {
-        public RestaurantServices(BanBrickContext context)
+        public RestaurantServices(BanBrickMySqlFacade context)
         {
 
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BanBrick.Infrastructure.Repositories.Models
+namespace BanBrick.Infrastructure.Repositories.MySql.Models
 {
     public class Surburb
     {
