@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using BanBrick.Infrastructure.Geometry.Attributes;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.GeoJsonObjectModel;
 using System;
@@ -7,6 +8,7 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Geometry.Models
 {
+    [BsonCollection("geoPoint")]
     public class GeoPoint
     {
         [BsonId]

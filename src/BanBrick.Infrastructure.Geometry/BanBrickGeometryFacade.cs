@@ -16,7 +16,7 @@ namespace BanBrick.Infrastructure.Geometry
         {
             _database = context.Database;
 
-            _geoPointRepository = _database.GetLazyRepository<GeoPoint>("geoPoint");
+            _geoPointRepository = _database.GetLazyRepository<GeoPoint>();
         }
 
         public IMongoRepository<GeoPoint> GeoPoints => _geoPointRepository.Value;
