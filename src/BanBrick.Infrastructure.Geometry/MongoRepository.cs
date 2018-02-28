@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BanBrick.Infrastructure.Geometry
 {
-    public class MongoRepository<TDocument>
+    public class MongoRepository<TDocument> : IMongoRepository<TDocument>
     {
         private IMongoCollection<TDocument> _collection;
 
-        public IMongoCollection<TDocument> Collection;
+        public IMongoCollection<TDocument> Collection => _collection;
 
         public MongoRepository(IMongoDatabase database, string collectionName)
         {
@@ -29,7 +29,7 @@ namespace BanBrick.Infrastructure.Geometry
             await _collection.InsertManyAsync(documents);
         }
 
-        public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filter,
+        public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> predicate,
             FindOptions<TDocument, TDocument> options = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await _collection.FindAsync(filter, options, cancellationToken);
