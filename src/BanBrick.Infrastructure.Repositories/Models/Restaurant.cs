@@ -23,6 +23,10 @@ namespace BanBrick.Infrastructure.Repositories.Models
         [Column("name")]
         [MaxLength(255)]
         public string Name { get; set; }
+        
+        [Column("geo_point_identifier")]
+        [MaxLength(36)]
+        public string GeoPointIdentifier { get; set; }
 
         public ICollection<DeliveryService> DeliveryServices { get; set; }
     }

@@ -21,7 +21,7 @@ namespace BanBrick.Infrastructure.Repositories.Models
 
         [Column("restaurant_id")]
         public string RestaurantId { get; set; }
-
+        
         public Restaurant Restaurant { get; set; }
     }
 }
