@@ -21,7 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BanBrick.Infrastructure.Geometry\BanBrick.Infrastructure.Geometry.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Repositories\BanBrick.Infrastructure.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Options\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

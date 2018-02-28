@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BanBrick.Infrastructure.Repositories.Mongo
+namespace BanBrick.Infrastructure.Geometry
 {
-    public class GenericRepository<TDocument>
+    public class MongoRepository<TDocument>
     {
         private IMongoCollection<TDocument> _collection;
 
         public IMongoCollection<TDocument> Collection;
 
-        public GenericRepository(IMongoDatabase database, string collectionName)
+        public MongoRepository(IMongoDatabase database, string collectionName)
         {
             _collection = database.GetCollection<TDocument>(collectionName);
         }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace BanBrick.Infrastructure.Repositories.MySql.Models
+namespace BanBrick.Infrastructure.Repositories.Models
 {
     [Table("delivery_services")]
     public class DeliveryService

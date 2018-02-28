@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using BanBrick.Infrastructure.Repositories;
-using BanBrick.Infrastructure.Repositories.MySql;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BanBrick.Presentation.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(BanBrickMongoFacade mongo)
-        {
-            
-        }
-
         public IActionResult Index()
         {
             return View();

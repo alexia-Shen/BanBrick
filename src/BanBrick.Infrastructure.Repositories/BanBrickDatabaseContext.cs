@@ -1,12 +1,12 @@
-﻿using BanBrick.Infrastructure.Repositories.MySql.Models;
+﻿using BanBrick.Infrastructure.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace BanBrick.Infrastructure.Repositories.MySql
+namespace BanBrick.Infrastructure.Repositories
 {
-    public class BanBrickMySqlContext: DbContext
+    public class BanBrickDatabaseContext: DbContext
     {
-        public BanBrickMySqlContext(DbContextOptions<BanBrickMySqlContext> options):base(options) { }
+        public BanBrickDatabaseContext(DbContextOptions<BanBrickDatabaseContext> options):base(options) { }
         
         public virtual DbSet<DeliveryService> DeliveryServices { get; set; }
 

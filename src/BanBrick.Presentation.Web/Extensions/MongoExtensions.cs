@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BanBrick.Infrastructure.Geometry;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,20 @@ namespace BanBrick.Presentation.Web.Extensions
     {
         public static IServiceCollection AddMongoContext<TContext>(
             this IServiceCollection serviceCollection, 
-            TContext context, 
-            ServiceLifetime contextLifetime = ServiceLifetime.Scoped) where TContext: class
-        {
-            switch (contextLifetime)
-            {
-                case ServiceLifetime.Scoped:
-                    return serviceCollection.AddScoped(x => context);
-                case ServiceLifetime.Singleton:
-                    return serviceCollection.AddSingleton(x => context);
-                case ServiceLifetime.Transient:
-                    return serviceCollection.AddTransient(x => context);
-            }
-
-            return serviceCollection;
-        }
-
-        public static IServiceCollection AddMongoContext<TContext>(
-            this IServiceCollection serviceCollection, 
-            Action<MongoOptionsBuilder> optionsAction = null, 
+            Action<MongoSettingsBuilder> optionsAction = null, 
             ServiceLifetime contextLifetime = ServiceLifetime.Scoped, 
             ServiceLifetime optionsLifetime = ServiceLifetime.Scoped
             ) where TContext : class
         {
-            return null;
+            var optionsBuilder = new MongoSettingsBuilder(optionsAction);
+
+            var optionsService = new ServiceDescriptor(typeof(MongoOptions), x => optionsBuilder.Options, optionsLifetime);
+            var contextService = new ServiceDescriptor(typeof(TContext), typeof(TContext), contextLifetime);
+
+            serviceCollection.Add(optionsService);
+            serviceCollection.Add(contextService);
+
+            return serviceCollection;
         }
     }
 }
