@@ -9,8 +9,4 @@
     <PackageReference Include="Rissole.EntityFramework" Version="1.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BanBrick.Infrastructure.Modules\BanBrick.Infrastructure.Modules.csproj" />
-  </ItemGroup>
-
 </Project>
