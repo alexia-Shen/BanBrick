@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BanBrick.Domain.Models
+namespace BanBrick.Domain.Models.Presentation
 {
     public class Restaurant
     {
