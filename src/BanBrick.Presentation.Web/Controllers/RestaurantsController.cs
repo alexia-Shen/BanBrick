@@ -12,21 +12,23 @@ namespace BanBrick.Presentation.Web.Controllers
     [Route("api/restaurants")]
     public class RestaurantsController : Controller
     {
-        // GET: api/Restaurants
+        // GET: api/restaurants
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
-        
+
+        // GET: api/restaurants/4baa59a8-1d60-11e8-b467-0ed5f89f718b
         [HttpGet("{id:Guid}")]
-        public string Get(Guid id)
+        public string Get([FromRoute] Guid id)
         {
             return "value";
         }
 
+        // GET: api/restaurants/lat=40.741895&long=-73.989308
         [HttpGet("{location:GeoPoint}")]
-        public string GetByLocation(GeoPoint location)
+        public string Get([FromRoute] GeoPoint location)
         {
             return $"value {location.Latitude} {location.Longitude}";
         }
