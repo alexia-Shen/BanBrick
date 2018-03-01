@@ -7,6 +7,11 @@ namespace BanBrick.Domain.Models.Presentation
 {
     public class Restaurant
     {
+        public Restaurant() {
+            Tags = new List<Tag>();
+            DeliveryServices = new List<RestaurantDeliveryService>();
+        }
+
         public string Name { get; set; }
 
         public GeoPoint Coordinate { get; set; }
@@ -15,8 +20,8 @@ namespace BanBrick.Domain.Models.Presentation
 
         public Suburb Suburb { get; set; }
 
-        public IEnumerable<Tag> Tags { get; set; }
+        public IList<Tag> Tags { get; set; }
 
-
+        public IList<RestaurantDeliveryService> DeliveryServices { get; set; }
     }
 }
