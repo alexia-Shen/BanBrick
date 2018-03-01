@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BanBrick.Infrastructure.Geometry;
 using BanBrick.Infrastructure.Repositories;
+using BanBrick.Presentation.Web.RouteConfigs;
 using BanBrick.Presentation.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +29,10 @@ namespace BanBrick.Presentation.WebSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.Configure<RouteOptions>(options => options.ConstraintMap.Add(GeoPointRouteConstaint.ConstraintMap));
+
+            services.AddMvc(options => options.ModelBinderProviders.Insert(0, new GeoPointModelBinderProvider()));
+
             services.AddDbContext<BanBrickDatabaseContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
             services.AddMongoContext<BanBrickGeometryContext>(options => options.UseMongo(Configuration.GetConnectionString("MongoConnection")));
 
@@ -57,6 +62,13 @@ namespace BanBrick.Presentation.WebSite
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "geopoint",
+                    template: "{controller}/{action}/{location:GeoPoint?}",
+                    defaults: null,
+                    constraints: new { location = new GeoPointRouteConstaint() }
+                );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

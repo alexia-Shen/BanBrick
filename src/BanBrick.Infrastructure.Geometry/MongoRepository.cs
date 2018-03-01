@@ -32,7 +32,7 @@ namespace BanBrick.Infrastructure.Geometry
         public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> predicate,
             FindOptions<TDocument, TDocument> options = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await _collection.FindAsync(filter, options, cancellationToken);
+            return await _collection.FindAsync(predicate, options, cancellationToken);
         }
     }
 }

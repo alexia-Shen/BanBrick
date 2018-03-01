@@ -8,7 +8,7 @@ namespace BanBrick.Domain.Models.Presentation
     {
         public string Name { get; set; }
 
-        public Coordinate Coordinate { get; set; }
+        public GeoPoint Coordinate { get; set; }
 
         public Address Address { get; set; }
 

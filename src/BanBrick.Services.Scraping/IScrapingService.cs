@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanBrick.Domain.Models.Scraping
+namespace BanBrick.Services.Scraping
 {
-    public class DeliveryRestrant
+    public interface IScrapingService
     {
 
     }

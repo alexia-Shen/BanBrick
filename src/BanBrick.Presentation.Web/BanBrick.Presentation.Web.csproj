@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BanBrick.Domain.Models\BanBrick.Domain.Models.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Geometry\BanBrick.Infrastructure.Geometry.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Repositories\BanBrick.Infrastructure.Repositories.csproj" />
   </ItemGroup>

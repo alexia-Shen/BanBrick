@@ -14,7 +14,7 @@ namespace BanBrick.Infrastructure.Repositories
         private BanBrickDatabaseContext _context;
 
         private Lazy<IGenericRepository<Restaurant>> _restaurantRepository => _context.Restaurants.GetLazyRepository();
-        private Lazy<IGenericRepository<DeliveryService>> _deliveryServiceRepository => _context.DeliveryServices.GetLazyRepository();
+        private Lazy<IGenericRepository<RestaurantService>> _deliveryServiceRepository => _context.DeliveryServices.GetLazyRepository();
         
         public BanBrickDatabaseFacade(BanBrickDatabaseContext context)
         {

@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Domain.Models", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Infrastructure.Repositories", "src\BanBrick.Infrastructure.Repositories\BanBrick.Infrastructure.Repositories.csproj", "{2E449D4F-47DA-47A9-B90E-2544ED48C504}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Domain.Interfaces", "src\BanBrick.Domain.Interfaces\BanBrick.Domain.Interfaces.csproj", "{AEDA9BD5-64FD-437E-8B5B-9B12C37CC639}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Domain.Services", "src\BanBrick.Domain.Services\BanBrick.Domain.Services.csproj", "{9027506E-6987-4565-AF51-5382895E0EFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Presentation.Web", "src\BanBrick.Presentation.Web\BanBrick.Presentation.Web.csproj", "{C728F18F-2068-493B-BAC7-D43D669CD9D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Infrastructure.Geometry", "src\BanBrick.Infrastructure.Geometry\BanBrick.Infrastructure.Geometry.csproj", "{CCB36A7E-FE4E-4E31-A12D-06D4761D98EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Services.Scraping", "src\BanBrick.Services.Scraping\BanBrick.Services.Scraping.csproj", "{2DB6AF33-F628-486C-82C0-E96E78064A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Services.Search", "BanBrick.Services.Search\BanBrick.Services.Search.csproj", "{2EA7977A-CF04-4A1A-A17A-9DC4746414A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,6 @@ Global
 		{2E449D4F-47DA-47A9-B90E-2544ED48C504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E449D4F-47DA-47A9-B90E-2544ED48C504}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E449D4F-47DA-47A9-B90E-2544ED48C504}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEDA9BD5-64FD-437E-8B5B-9B12C37CC639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEDA9BD5-64FD-437E-8B5B-9B12C37CC639}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEDA9BD5-64FD-437E-8B5B-9B12C37CC639}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEDA9BD5-64FD-437E-8B5B-9B12C37CC639}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9027506E-6987-4565-AF51-5382895E0EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9027506E-6987-4565-AF51-5382895E0EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9027506E-6987-4565-AF51-5382895E0EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +49,14 @@ Global
 		{CCB36A7E-FE4E-4E31-A12D-06D4761D98EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCB36A7E-FE4E-4E31-A12D-06D4761D98EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCB36A7E-FE4E-4E31-A12D-06D4761D98EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB6AF33-F628-486C-82C0-E96E78064A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB6AF33-F628-486C-82C0-E96E78064A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB6AF33-F628-486C-82C0-E96E78064A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB6AF33-F628-486C-82C0-E96E78064A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA7977A-CF04-4A1A-A17A-9DC4746414A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA7977A-CF04-4A1A-A17A-9DC4746414A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA7977A-CF04-4A1A-A17A-9DC4746414A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA7977A-CF04-4A1A-A17A-9DC4746414A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
