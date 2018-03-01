@@ -35,6 +35,8 @@ namespace BanBrick.Presentation.Web.RouteConfigs
 
         private GeoPoint GetGeoPoint(string query)
         {
+            if (string.IsNullOrEmpty(query)) return new GeoPoint();
+
             var coordinates = query.Split("&").Select(x => x.Split("="));
 
             var latitude = GetCoordinateValue(GeoPointRouteParameters.LatituteParameters, coordinates);

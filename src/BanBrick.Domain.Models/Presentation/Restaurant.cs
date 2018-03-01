@@ -1,4 +1,5 @@
 ﻿using BanBirck.Domain.Models.Geometry;
+using BanBrick.Domain.Models.Common;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,8 @@ namespace BanBrick.Domain.Models.Presentation
 
         public Suburb Suburb { get; set; }
 
-        public List<string> Tags { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BanBirck.Domain.Models.Geometry;
+using BanBrick.Domain.Models.Presentation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,23 +15,16 @@ namespace BanBrick.Presentation.Web.Controllers
     {
         // GET: api/restaurants
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Restaurant> Get([FromQuery] RestaurantQuery query)
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET: api/restaurants/4baa59a8-1d60-11e8-b467-0ed5f89f718b
         [HttpGet("{id:Guid}")]
-        public string Get([FromRoute] Guid id)
+        public Restaurant Get([FromRoute] Guid id)
         {
-            return "value";
-        }
-
-        // GET: api/restaurants/lat=40.741895&long=-73.989308
-        [HttpGet("{location:GeoPoint}")]
-        public string Get([FromRoute] GeoPoint location)
-        {
-            return $"value {location.Latitude} {location.Longitude}";
+            return null;
         }
 
         // POST: api/Restaurants
