@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Geometry.Models
 {
-    [BsonCollection("geoPoint")]
+    [BsonCollection("geoPoints")]
     public class GeoPoint
     {
         [BsonId]

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Repositories.Models
 {
-    [Table("delivery_services")]
-    public class DeliveryService
+    [Table("restaurant_services")]
+    public class RestaurantService
     {
         [Key]
         [Column("id")]

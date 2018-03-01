@@ -8,19 +8,19 @@ namespace BanBrick.Infrastructure.Repositories
     {
         public BanBrickDatabaseContext(DbContextOptions<BanBrickDatabaseContext> options):base(options) { }
         
-        public virtual DbSet<DeliveryService> DeliveryServices { get; set; }
+        public virtual DbSet<RestaurantService> DeliveryServices { get; set; }
 
         public virtual DbSet<Restaurant> Restaurants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder) {
-            builder.Entity<DeliveryService>()
+            builder.Entity<RestaurantService>()
                 .HasOne(x => x.Restaurant)
                 .WithMany(x => x.DeliveryServices)
                 .HasForeignKey(x => x.RestaurantId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<Restaurant>()
-                .HasIndex(x => x.GeoPointIdentifier);
+                .HasIndex(x => x.GeoPoint);
         }
     }
 }

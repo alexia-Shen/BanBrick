@@ -8,26 +8,27 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Repositories.Models
 {
-    [Table("restaurant")]
+    [Table("restaurants")]
     public class Restaurant
     {
         public Restaurant() {
-            DeliveryServices = new HashSet<DeliveryService>();
+            DeliveryServices = new HashSet<RestaurantService>();
         }
 
         [Key]
         [Column("id")]
         [MaxLength(36)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
         [Column("name")]
         [MaxLength(255)]
         public string Name { get; set; }
         
-        [Column("geo_point_identifier")]
+        [Column("geo_point")]
         [MaxLength(36)]
-        public string GeoPointIdentifier { get; set; }
-
-        public ICollection<DeliveryService> DeliveryServices { get; set; }
+        public string GeoPoint { get; set; }
+        
+        public ICollection<RestaurantService> DeliveryServices { get; set; }
     }
 }
