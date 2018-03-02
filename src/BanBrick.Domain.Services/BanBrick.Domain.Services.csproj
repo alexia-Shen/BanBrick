@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BanBrick.Domain.Models\BanBrick.Domain.Models.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Repositories\BanBrick.Infrastructure.Repositories.csproj" />
   </ItemGroup>
 

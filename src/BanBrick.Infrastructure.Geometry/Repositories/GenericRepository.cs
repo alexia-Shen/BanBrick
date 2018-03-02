@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BanBrick.Infrastructure.Geometry.Repositories
 {
-    public class MongoRepository<TDocument> : IGenericRepository<TDocument>
+    public class GenericRepository<TDocument> : IGenericRepository<TDocument>
     {
         private IMongoCollection<TDocument> _collection;
 
         public IMongoCollection<TDocument> Collection => _collection;
 
-        public MongoRepository(IMongoDatabase database, string collectionName)
+        public GenericRepository(IMongoDatabase database, string collectionName)
         {
             _collection = database.GetCollection<TDocument>(collectionName);
         }

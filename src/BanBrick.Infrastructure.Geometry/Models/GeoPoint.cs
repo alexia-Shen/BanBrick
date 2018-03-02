@@ -15,6 +15,8 @@ namespace BanBrick.Infrastructure.Geometry.Models
         public ObjectId Id { get; set; }
 
         public GeoJson2DCoordinates Point { get; set; }
+        
+        public List<string> Tags { get; set; }
 
         public string Identifier { get; set; }
     }
