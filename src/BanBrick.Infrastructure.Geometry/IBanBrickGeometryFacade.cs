@@ -1,4 +1,5 @@
 ﻿using BanBrick.Infrastructure.Geometry.Models;
+using BanBrick.Infrastructure.Geometry.Repositories;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace BanBrick.Infrastructure.Geometry
 {
     public interface IBanBrickGeometryFacade
     {
-        IMongoRepository<GeoPoint> GeoPoints { get; }
+        IGeoPointRepository GeoPoints { get; }
 
         IMongoDatabase Database { get; }
     }

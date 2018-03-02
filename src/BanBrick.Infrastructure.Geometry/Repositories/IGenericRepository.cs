@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BanBrick.Infrastructure.Geometry
+namespace BanBrick.Infrastructure.Geometry.Repositories
 {
-    public interface IMongoRepository<TDocument>
+    public interface IGenericRepository<TDocument>
     {
         IMongoCollection<TDocument> Collection { get; }
         
