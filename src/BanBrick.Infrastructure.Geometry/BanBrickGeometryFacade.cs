@@ -11,13 +11,11 @@ namespace BanBrick.Infrastructure.Geometry
     public class BanBrickGeometryFacade: IBanBrickGeometryFacade
     {
         private IMongoDatabase _database;
-        private Lazy<IGeoPointRepository> _geoPointRepository;
+        private Lazy<IGeoPointRepository> _geoPointRepository => new Lazy<IGeoPointRepository>(() => new GeoPointRepository(_database));
 
         public BanBrickGeometryFacade(BanBrickGeometryContext context)
         {
             _database = context.Database;
-
-            _geoPointRepository = new Lazy<IGeoPointRepository>(() => new GeoPointRepository(_database));
         }
 
         public IGeoPointRepository GeoPoints => _geoPointRepository.Value;

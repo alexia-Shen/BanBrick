@@ -14,5 +14,9 @@ namespace BanBrick.Infrastructure.Repositories
         Task SaveChangesAsync();
 
         IGenericRepository<Restaurant> Restaurants { get; }
+
+        IGenericRepository<RestaurantService> RestaurantServices { get; }
+
+        IGenericRepository<FileSource> FileSources { get; }
     }
 }

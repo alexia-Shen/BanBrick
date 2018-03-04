@@ -17,16 +17,16 @@ namespace BanBrick.Infrastructure.Geometry.Repositories
         {
         }
 
-        public async Task<GeoPoint> GetByCoordinateAsync(double latitude, double longitude)
+        public async Task<IAsyncCursor<GeoPoint>> GetByCoordinateAsync(double latitude, double longitude)
         {
             var query = Builders<GeoPoint>.Filter.NearSphere(x => x.Point, longitude, latitude);
-            return await (await Collection.FindAsync(query)).FirstOrDefaultAsync();
+            return await Collection.FindAsync(query);
         }
 
-        public async Task<IList<GeoPoint>> GetByDistanceAsync(double latitude, double longitude, double distance)
+        public async Task<IAsyncCursor<GeoPoint>> GetByDistanceAsync(double latitude, double longitude, double distance)
         {
             var query = Builders<GeoPoint>.Filter.NearSphere(x => x.Point, longitude, latitude, distance);
-            return await (await Collection.FindAsync(query)).ToListAsync();
+            return await Collection.FindAsync(query);
         }
     }
 }

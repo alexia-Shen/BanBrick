@@ -17,6 +17,7 @@ namespace BanBrick.Infrastructure.Repositories.Models
 
         public string QuerySelector { get; set; }
 
-
+        [Column("style", TypeName = "text")]
+        public string Style { get; set; }
     }
 }

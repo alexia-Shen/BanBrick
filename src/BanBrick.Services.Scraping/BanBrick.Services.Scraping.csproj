@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BanBrick.Infrastructure.Http\BanBrick.Infrastructure.Http.csproj" />
+  </ItemGroup>
+
 </Project>

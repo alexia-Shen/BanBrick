@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BanBrick.Infrastructure.Repositories;
+using BanBrick.Services.Scraping;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BanBrick.Presentation.WebSite.Controllers
@@ -9,6 +11,11 @@ namespace BanBrick.Presentation.WebSite.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
+        public SampleDataController() {
+            var service = new ScrapingService();
+            service.Test();
+        }
+
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

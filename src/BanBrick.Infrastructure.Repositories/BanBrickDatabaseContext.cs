@@ -12,6 +12,8 @@ namespace BanBrick.Infrastructure.Repositories
 
         public virtual DbSet<Restaurant> Restaurants { get; set; }
 
+        public virtual DbSet<FileSource> FileSources { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder) {
             builder.Entity<RestaurantService>()
                 .HasOne(x => x.Restaurant)

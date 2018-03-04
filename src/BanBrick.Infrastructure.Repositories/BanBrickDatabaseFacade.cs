@@ -14,14 +14,17 @@ namespace BanBrick.Infrastructure.Repositories
         private BanBrickDatabaseContext _context;
 
         private Lazy<IGenericRepository<Restaurant>> _restaurantRepository => _context.Restaurants.GetLazyRepository();
-        private Lazy<IGenericRepository<RestaurantService>> _deliveryServiceRepository => _context.DeliveryServices.GetLazyRepository();
-        
+        private Lazy<IGenericRepository<RestaurantService>> _restaurantServiceRepository => _context.DeliveryServices.GetLazyRepository();
+        private Lazy<IGenericRepository<FileSource>> _fileSourceRepository => _context.FileSources.GetLazyRepository();
+
         public BanBrickDatabaseFacade(BanBrickDatabaseContext context)
         {
             _context = context;
         }
 
         public IGenericRepository<Restaurant> Restaurants => _restaurantRepository.Value;
+        public IGenericRepository<RestaurantService> RestaurantServices => _restaurantServiceRepository.Value;
+        public IGenericRepository<FileSource> FileSources => _fileSourceRepository.Value;
 
         public void SaveChanges()
         {

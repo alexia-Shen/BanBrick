@@ -15,12 +15,22 @@ namespace BanBrick.Infrastructure.Repositories.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
+        [Column("name")]
+        [MaxLength(255)]
         public string Name { get; set; }
-
+        
+        [Column("file_path")]
+        [MaxLength(255)]
         public string FilePath { get; set; }
 
+        [Column("file_type")]
+        [MaxLength(50)]
         public string FileType { get; set; }
 
-        public string SourceType { get; set; }
+        [Column("file_source_id")]
+        [MaxLength(36)]
+        public string FileSourceId { get; set; }
+
+        public FileSource FileSource { get; set; }
     }
 }
