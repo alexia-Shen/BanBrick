@@ -5,8 +5,16 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Scrapy.Result
 {
-    public static class ScrapyResultProcessorBuilder
+    public class ScrapyResultProcessorBuilder
     {
-        public static IDictionary<SelectorSourceType, IScrapyResultProcesser> Processers { get; set; }
+        public ScrapyResultProcessorBuilder() {
+            Processers = new Dictionary<object, IScrapyResultProcesser>();
+
+            Processers[SelectorSourceType.Html] = new ScrapyResultHtmlProcesser();
+            Processers[SelectorSourceType.Json] = new ScrapyResultContantProcesser();
+            Processers[SelectorSourceType.Constant] = new ScrapyResultJsonProcesser();
+        }
+        
+        public Dictionary<object, IScrapyResultProcesser> Processers { get; set; }
     }
 }

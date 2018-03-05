@@ -20,7 +20,7 @@ namespace BanBrick.Services.Scraping.Models
 
         public SelectorSourceType SelectorSourceType { get; set; }
 
-        public SelectorResultType SelectorResultType { get; set; }
+        public ScrapyResultType ScrapyResultType { get; set; }
         
         public IList<ScrapySelector> SubSelectors { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BanBrick.Services.Scraping.Enums
 {
-    public enum SelectorResultType
+    public enum ScrapyResultType
     {
         List,
         Object,

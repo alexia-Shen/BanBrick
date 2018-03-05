@@ -9,39 +9,15 @@ namespace BanBrick.Infrastructure.Scrapy.Result
 {
     public class ScrapyResultProcesser
     {
+        private ScrapyResultProcessorBuilder _scrapyResultProcessorBuilder;
+
+        public ScrapyResultProcesser() {
+            _scrapyResultProcessorBuilder = new ScrapyResultProcessorBuilder();
+        }
+
         public ScrapyResult Process(HttpResponseMessage httpResponseMessage, ScrapySelector selector)
         {
-            switch (selector.SelectorSourceType)
-            {
-                case SelectorSourceType.Constant: break;
-                case SelectorSourceType.Html:
-                    return ProcessHtmlResponse(httpResponseMessage, selector);
-
-                case SelectorSourceType.Json: break;
-            }
-
-            return null;
-        }
-
-        private ScrapyResult ProcessConstantResponse(HttpResponseMessage httpResponseMessage, ScrapySelector selector)
-        {
-            return null;
-        }
-
-        private ScrapyResult ProcessHtmlResponse(HttpResponseMessage httpResponseMessage, ScrapySelector selector)
-        {
-            switch (selector.SelectorResultType)
-            {
-                case SelectorResultType.List: break;
-                case SelectorResultType.Object: break;
-                case SelectorResultType.Property: break;
-            }
-
-            return null;
-        }
-
-        private ScrapyResult ProcessJsonResponse(HttpResponseMessage httpResponseMessage, ScrapySelector selector)
-        {
+            var result = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(httpResponseMessage, selector);
             return null;
         }
     }
