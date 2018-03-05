@@ -12,7 +12,7 @@ namespace BanBrick.Presentation.WebSite.Controllers
     public class SampleDataController : Controller
     {
         public SampleDataController() {
-            var service = new ScrapingService();
+            var service = new ScrapyService();
             service.Test();
         }
 

@@ -564,11 +564,18 @@ namespace BanBrick.Infrastructure.Http
             return response.FormatResponseModel<Response>();
         }
 
-        private HttpRequestMessage GetHttpRequestMessage(
-            HttpMethod httpMethod,
-            string requestUri,
-            HttpHeader[] requestHeaders,
-            HttpContent requestContent = null)
+        public Task<HttpResponseMessage> SendAsync(HttpMethod httpMethod, string requestUri, HttpHeader[] requestHeaders,  HttpContent requestContent = null)
+        {
+            return SendAsync(GetHttpRequestMessage(HttpMethod.Get, requestUri, requestHeaders));
+        }
+
+        public HttpResponseMessage Send(HttpMethod httpMethod, string requestUri, HttpHeader[] requestHeaders, HttpContent requestContent = null)
+        {
+            return SendAsync(HttpMethod.Get, requestUri, requestHeaders).Result;
+        }
+
+        private HttpRequestMessage GetHttpRequestMessage(HttpMethod httpMethod, string requestUri,
+            HttpHeader[] requestHeaders, HttpContent requestContent = null)
         {
             var httpRequestMessage = new HttpRequestMessage(httpMethod, requestUri);
             

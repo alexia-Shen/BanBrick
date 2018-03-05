@@ -4,9 +4,11 @@ using System.Text;
 
 namespace BanBrick.Services.Scraping.Enums
 {
-    public enum SelectorType
+    public enum SelectorSourceType
     {
         Html,
-        Json
+        Json,
+        KeyValue,
+        Constant
     }
 }

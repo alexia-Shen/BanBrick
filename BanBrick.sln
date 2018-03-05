@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Presentation.Web",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Infrastructure.Geometry", "src\BanBrick.Infrastructure.Geometry\BanBrick.Infrastructure.Geometry.csproj", "{CCB36A7E-FE4E-4E31-A12D-06D4761D98EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Services.Scraping", "src\BanBrick.Services.Scraping\BanBrick.Services.Scraping.csproj", "{2DB6AF33-F628-486C-82C0-E96E78064A33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Infrastructure.Scrapy", "src\BanBrick.Infrastructure.Scrapy\BanBrick.Infrastructure.Scrapy.csproj", "{2DB6AF33-F628-486C-82C0-E96E78064A33}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Services.Search", "src\BanBrick.Services.Search\BanBrick.Services.Search.csproj", "{46620857-1FD8-4599-9B94-211C3FD35BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Infrastructure.Http", "src\BanBrick.Infrastructure.Http\BanBrick.Infrastructure.Http.csproj", "{53B0BD04-39EA-4EFB-81C2-D68B7832D888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Infrastructure.Http", "src\BanBrick.Infrastructure.Http\BanBrick.Infrastructure.Http.csproj", "{53B0BD04-39EA-4EFB-81C2-D68B7832D888}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Infrastructure.Extensions", "src\BanBrick.Infrastructure.Extensions\BanBrick.Infrastructure.Extensions.csproj", "{15A901B4-6176-4480-9996-25873FF60F00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A901B4-6176-4480-9996-25873FF60F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A901B4-6176-4480-9996-25873FF60F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A901B4-6176-4480-9996-25873FF60F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A901B4-6176-4480-9996-25873FF60F00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

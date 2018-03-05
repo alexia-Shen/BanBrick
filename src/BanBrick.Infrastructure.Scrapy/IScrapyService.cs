@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BanBrick.Services.Scraping
 {
-    public interface IScrapingService
+    public interface IScrapyService
     {
 
     }

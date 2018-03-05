@@ -4,12 +4,12 @@ using System.Text;
 
 namespace BanBrick.Services.Scraping.Models
 {
-    public class PropertySelector
+    public class ScrapyResult
     {
-        public string Selector { get; set; }
-
         public string Name { get; set; }
 
-        public string Regex { get; set; }
+        public string Value { get; set; }
+
+        public IList<ScrapyResult> SubResults { get; set; }
     }
 }
