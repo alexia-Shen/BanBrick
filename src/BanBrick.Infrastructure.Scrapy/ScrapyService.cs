@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom.Html;
+using BanBrick.Infrastructure.Extensions;
 using BanBrick.Infrastructure.Http;
 using BanBrick.Infrastructure.Http.Extensions;
 using BanBrick.Services.Scraping.Enums;
@@ -37,30 +38,47 @@ namespace BanBrick.Services.Scraping
             IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
         {
             var autoDecompress = defualtHeaders.Any(x => x.Name.Equals("Accept-Encoding", StringComparison.CurrentCultureIgnoreCase));
-            var requstUri = ProcessRequestUriTemplate(scrapyMethod.RequestUriTemplate, paramters);
+            var requstUri = ProcessStringTemplate(scrapyMethod.RequestUriTemplate, paramters);
+            var requestContent = ProcessRequestContentTemplate(scrapyMethod.RequestContentTemplate, paramters);
+            var requestHeaders = ProcessRequestHeaderTemplate(scrapyMethod.RequestHeaderTemplate, paramters);
+
+            if (defualtHeaders != null)
+            {
+                var addtionalRequestHeaders = defualtHeaders.Where(x => !requestHeaders.Any(y => y.Name == x.Name)).ToList();
+                requestHeaders.AddRange(addtionalRequestHeaders);
+            }
 
             using (var httpClient = new BanBrickHttpClient(scrapyMethod.RequestHost, autoDecompress))
             {
-                var response = httpClient.Send(scrapyMethod.HttpMethod, requstUri, )
-            }
-            return null;
-        }
+                var response = httpClient.Send(scrapyMethod.HttpMethod, requstUri, requestHeaders.ToArray(), requestContent);
 
-        private string ProcessRequestUriTemplate(string template, IDictionary<string, string> parameters)
-        {
-            return "";
+
+            }
+
+            return null;
         }
 
         private HttpContent ProcessRequestContentTemplate(string template, IDictionary<string, string> parameters)
         {
-            return null;
+            var contentString = ProcessStringTemplate(template, parameters);
+            return new StringContent(contentString, Encoding.UTF8, "application/json");
         }
 
-        public List<HttpHeader> ProcessRequestHeaderTemplate(string templatre, IDictionary<string, string> parameters)
+        private List<HttpHeader> ProcessRequestHeaderTemplate(string template, IDictionary<string, string> parameters)
         {
-            var result = new List<HttpHeader>();
+            var headerString = ProcessStringTemplate(template, parameters);
+            var headers = headerString.ToDictionary().Select(x => new HttpHeader(x.Key, x.Value)).ToList();
+            return headers;
+        }
 
+        private string ProcessStringTemplate(string template, IDictionary<string, string> parameters)
+        {
+            var result = template;
 
+            foreach (var parameter in parameters)
+            {
+                result = result.Replace("{" + parameter.Key + "}", parameter.Value);
+            }
 
             return result;
         }
