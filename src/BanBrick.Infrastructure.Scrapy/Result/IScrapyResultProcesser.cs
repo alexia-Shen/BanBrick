@@ -8,6 +8,6 @@ namespace BanBrick.Infrastructure.Scrapy.Result
 {
     public interface IScrapyResultProcesser
     {
-        List<ScrapyResult> Process(string content, ScrapySelector selector);
+        List<ScrapyResult> Process(HttpResponseMessage response, ScrapySelector selector);
     }
 }

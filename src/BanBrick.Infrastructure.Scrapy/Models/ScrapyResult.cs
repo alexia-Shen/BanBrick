@@ -18,7 +18,7 @@ namespace BanBrick.Services.Scraping.Models
 
         public string Result { get; }
 
-        public ScrapyResultType ScrapyResultType { get; set; }
+        public ScrapyResultType Type { get; set; }
 
         public List<ScrapyResult> SubResults { get; set; }
     }

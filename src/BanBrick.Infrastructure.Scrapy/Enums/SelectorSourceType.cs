@@ -8,6 +8,7 @@ namespace BanBrick.Services.Scraping.Enums
     {
         Html,
         Json,
-        Constant
+        Constant,
+        Header
     }
 }

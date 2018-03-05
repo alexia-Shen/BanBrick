@@ -2,6 +2,7 @@
 using BanBrick.Services.Scraping.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 
@@ -15,9 +16,9 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             _scrapyResultProcessorBuilder = new ScrapyResultProcessorBuilder();
         }
 
-        public List<ScrapyResult> Process(string content, ScrapySelector selector)
+        public List<ScrapyResult> Process(HttpResponseMessage response, ScrapySelector selector)
         {
-            var results = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(content, selector);
+            var results = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(response, selector);
 
             if (selector.SubSelectors.Count > 0)
             {
@@ -25,7 +26,10 @@ namespace BanBrick.Infrastructure.Scrapy.Result
                 {
                     foreach (var result in results)
                     {
-                        result.SubResults.AddRange(Process(result.Value, subSelector));
+                        var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) {
+                            Content = new StringContent(result.Value)
+                        };
+                        result.SubResults.AddRange(Process(responseMessage, subSelector));
                     }
                 }
             }

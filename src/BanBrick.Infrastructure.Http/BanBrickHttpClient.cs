@@ -566,12 +566,12 @@ namespace BanBrick.Infrastructure.Http
 
         public Task<HttpResponseMessage> SendAsync(HttpMethod httpMethod, string requestUri, HttpHeader[] requestHeaders,  HttpContent requestContent = null)
         {
-            return SendAsync(GetHttpRequestMessage(HttpMethod.Get, requestUri, requestHeaders));
+            return SendAsync(GetHttpRequestMessage(httpMethod, requestUri, requestHeaders));
         }
 
         public HttpResponseMessage Send(HttpMethod httpMethod, string requestUri, HttpHeader[] requestHeaders, HttpContent requestContent = null)
         {
-            return SendAsync(HttpMethod.Get, requestUri, requestHeaders).Result;
+            return SendAsync(httpMethod, requestUri, requestHeaders).Result;
         }
 
         private HttpRequestMessage GetHttpRequestMessage(HttpMethod httpMethod, string requestUri,

@@ -6,13 +6,8 @@ using BanBrick.Services.Scraping.Models;
 
 namespace BanBrick.Infrastructure.Scrapy.Result
 {
-    public class ScrapyResultContantProcesser : IScrapyResultProcesser
+    public class ScrapyResultHeaderProcesser : IScrapyResultProcesser
     {
-        public List<ScrapyResult> Process(string content, ScrapySelector selector)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<ScrapyResult> Process(HttpResponseMessage response, ScrapySelector selector)
         {
             throw new NotImplementedException();

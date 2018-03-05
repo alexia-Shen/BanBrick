@@ -32,19 +32,19 @@ namespace BanBrick.Infrastructure.Scrapy
             foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
             {
                 var processedReuslt = Process(scrapyMethod, defualtHeaders, processedReuslts, paramters);
-                processedReuslts.Add(processedReuslt);
+                processedReuslts.AddRange(processedReuslt);
             }
 
             return null;
         }
 
-        public ScrapyResult Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
+        public List<ScrapyResult> Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
             IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
         {
             var response = _scrapyHttpProcesser.Process(scrapyMethod, defualtHeaders, processedResults, paramters);
-            var scrapyResult = _scrapyResultProcesser.Process(response.Content.ReadAsStringAsync().Result, scrapyMethod.Selector);
-
-            return null;
+            var results = _scrapyResultProcesser.Process(response, scrapyMethod.Selector);
+            
+            return results;
         }
         
         private HttpHeader[] GetEmulateHeaders()

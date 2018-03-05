@@ -17,7 +17,7 @@ namespace BanBrick.Services.Scraping.Models
         public string RequestHeaderTemplate { get; set; }
 
         public string RequestContentTemplate { get; set; }
-        
+
         public ScrapySelector Selector { get; set; }
 
         public ScrapyMethod NextScrapyMethod { get; set; }
