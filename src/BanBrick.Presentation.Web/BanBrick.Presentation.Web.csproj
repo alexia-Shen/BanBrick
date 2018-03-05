@@ -26,7 +26,7 @@
     <ProjectReference Include="..\BanBrick.Infrastructure.Geometry\BanBrick.Infrastructure.Geometry.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Http\BanBrick.Infrastructure.Http.csproj" />
     <ProjectReference Include="..\BanBrick.Infrastructure.Repositories\BanBrick.Infrastructure.Repositories.csproj" />
-    <ProjectReference Include="..\BanBrick.Services.Scraping\BanBrick.Infrastructure.Scrapy.csproj" />
+    <ProjectReference Include="..\BanBrick.Infrastructure.Scrapy\BanBrick.Infrastructure.Scrapy.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
