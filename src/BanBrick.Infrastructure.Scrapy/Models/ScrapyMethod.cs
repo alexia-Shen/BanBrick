@@ -20,6 +20,6 @@ namespace BanBrick.Services.Scraping.Models
         
         public ScrapySelector Selector { get; set; }
 
-        public ScrapyMethod NextScrapingMethod { get; set; }
+        public ScrapyMethod NextScrapyMethod { get; set; }
     }
 }

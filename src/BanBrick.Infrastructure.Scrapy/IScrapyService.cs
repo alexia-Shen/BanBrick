@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanBrick.Services.Scraping
+namespace BanBrick.Infrastructure.Scrapy
 {
     public interface IScrapyService
     {

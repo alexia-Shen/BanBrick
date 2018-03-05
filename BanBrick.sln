@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Services.Search", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BanBrick.Infrastructure.Http", "src\BanBrick.Infrastructure.Http\BanBrick.Infrastructure.Http.csproj", "{53B0BD04-39EA-4EFB-81C2-D68B7832D888}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanBrick.Infrastructure.Extensions", "src\BanBrick.Infrastructure.Extensions\BanBrick.Infrastructure.Extensions.csproj", "{15A901B4-6176-4480-9996-25873FF60F00}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,10 +63,6 @@ Global
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B0BD04-39EA-4EFB-81C2-D68B7832D888}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15A901B4-6176-4480-9996-25873FF60F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15A901B4-6176-4480-9996-25873FF60F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15A901B4-6176-4480-9996-25873FF60F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15A901B4-6176-4480-9996-25873FF60F00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
