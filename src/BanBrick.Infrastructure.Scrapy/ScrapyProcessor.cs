@@ -42,7 +42,7 @@ namespace BanBrick.Infrastructure.Scrapy
             IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
         {
             var response = _scrapyHttpProcesser.Process(scrapyMethod, defualtHeaders, processedResults, paramters);
-            var scrapyResult = _scrapyResultProcesser.Process(response, scrapyMethod.Selector);
+            var scrapyResult = _scrapyResultProcesser.Process(response.Content.ReadAsStringAsync().Result, scrapyMethod.Selector);
 
             return null;
         }

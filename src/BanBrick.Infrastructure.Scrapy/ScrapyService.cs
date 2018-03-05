@@ -36,13 +36,13 @@ namespace BanBrick.Infrastructure.Scrapy
                         RequestUriTemplate = "/area/{{PostCode}}-{{Suburb}}/",
                         Selector = new ScrapySelector() {
                             Name = "Resturants",
-                            SelectorResultType = SelectorResultType.List,
+                            ScrapyResultType = ScrapyResultType.List,
                             SelectorSourceType = SelectorSourceType.Html,
                             Query = ".listing-item",
                             SubSelectors = new List<ScrapySelector>() {
                                 new ScrapySelector() {
                                     Name = "TotalRating",
-                                    SelectorResultType = SelectorResultType.Property,
+                                    ScrapyResultType = ScrapyResultType.Property,
                                     SelectorSourceType = SelectorSourceType.Html,
                                     Query = "meta[itemprop=ratingValue]",
                                     Regex = "content=\"(?'TotalRating'.*)\""

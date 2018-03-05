@@ -11,6 +11,14 @@ namespace BanBrick.Infrastructure.Scrapy
 {
     public class ScrapyHttpProcesser
     {
+        /// <summary>
+        /// Process ScrapyMethod
+        /// </summary>
+        /// <param name="scrapyMethod"></param>
+        /// <param name="defualtHeaders"></param>
+        /// <param name="processedResults"></param>
+        /// <param name="paramters"></param>
+        /// <returns>HttpResponseMessage String Content</returns>
         public HttpResponseMessage Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
             IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
         {

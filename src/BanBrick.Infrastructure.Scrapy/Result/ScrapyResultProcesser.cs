@@ -15,10 +15,22 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             _scrapyResultProcessorBuilder = new ScrapyResultProcessorBuilder();
         }
 
-        public ScrapyResult Process(HttpResponseMessage httpResponseMessage, ScrapySelector selector)
+        public List<ScrapyResult> Process(string content, ScrapySelector selector)
         {
-            var result = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(httpResponseMessage, selector);
-            return null;
+            var results = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(content, selector);
+
+            if (selector.SubSelectors.Count > 0)
+            {
+                foreach (var subSelector in selector.SubSelectors)
+                {
+                    foreach (var result in results)
+                    {
+                        result.SubResults.AddRange(Process(result.Value, subSelector));
+                    }
+                }
+            }
+
+            return results;
         }
     }
 }
