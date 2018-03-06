@@ -5,9 +5,9 @@ using System.Text;
 
 namespace BanBrick.Infrastructure.Scrapy.Result
 {
-    public class ScrapyResultProcessorBuilder
+    public class ScrapyResultProcessorFactory
     {
-        public ScrapyResultProcessorBuilder() {
+        public ScrapyResultProcessorFactory() {
             Processers = new Dictionary<object, IScrapyResultProcesser>();
 
             Processers[SelectorSourceType.Html] = new ScrapyResultHtmlProcesser();
