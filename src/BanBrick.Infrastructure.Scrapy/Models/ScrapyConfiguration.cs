@@ -12,6 +12,8 @@ namespace BanBrick.Infrastructure.Scrapy.Models
             ScrapyMethods = new List<ScrapyMethod>();
         }
 
+        public string Host;
+
         public IList<ScrapyMethod> ScrapyMethods { get; set; }
         
         public bool UseBrowserEmulator { get; set; }

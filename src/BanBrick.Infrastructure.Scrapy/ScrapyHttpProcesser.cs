@@ -11,6 +11,13 @@ namespace BanBrick.Infrastructure.Scrapy
 {
     public class ScrapyHttpProcesser
     {
+        private BanBrickHttpClient _banBrickHttpClient;
+
+        public ScrapyHttpProcesser(BanBrickHttpClient banBrickHttpClient)
+        {
+            _banBrickHttpClient = banBrickHttpClient;
+        }
+
         /// <summary>
         /// Process ScrapyMethod
         /// </summary>
@@ -19,11 +26,8 @@ namespace BanBrick.Infrastructure.Scrapy
         /// <param name="processedResults"></param>
         /// <param name="paramters"></param>
         /// <returns>HttpResponseMessage String Content</returns>
-        public ScrapyHttpResponse Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
-            IList<ScrapyProcessResult> processedResults, IDictionary<string, string> paramters)
+        public ScrapyHttpResponse Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders, IDictionary<string, string> paramters)
         {
-            var autoDecompress = defualtHeaders.Any(x => x.Name.Equals("Accept-Encoding", StringComparison.CurrentCultureIgnoreCase));
-
             var requstUri = ProcessStringTemplate(scrapyMethod.RequestUriTemplate, paramters);
             var requestContent = ProcessRequestContentTemplate(scrapyMethod.RequestContentTemplate, paramters);
             var requestHeaders = ProcessRequestHeaderTemplate(scrapyMethod.RequestHeaderTemplate, paramters);
@@ -33,16 +37,23 @@ namespace BanBrick.Infrastructure.Scrapy
                 var addtionalRequestHeaders = defualtHeaders.Where(x => !requestHeaders.Any(y => y.Name == x.Name)).ToList();
                 requestHeaders.AddRange(addtionalRequestHeaders);
             }
-            
-            using (var httpClient = new BanBrickHttpClient(scrapyMethod.RequestHost, autoDecompress))
-            {
-                return new ScrapyHttpResponse(httpClient.Send(scrapyMethod.HttpMethod, requstUri, requestHeaders.ToArray(), requestContent));
-            }
+
+            return new ScrapyHttpResponse(_banBrickHttpClient.Send(scrapyMethod.HttpMethod, requstUri, requestHeaders.ToArray(), requestContent));
         }
 
         private HttpContent ProcessRequestContentTemplate(string template, IDictionary<string, string> parameters)
         {
             var contentString = ProcessStringTemplate(template, parameters);
+
+            try
+            {
+                var json = new JObject(contentString);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
             return new StringContent(contentString, Encoding.UTF8, "application/json");
         }
 
