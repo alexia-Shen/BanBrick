@@ -40,7 +40,15 @@ namespace BanBrick.Infrastructure.Scrapy
                 requestHeaders.AddRange(addtionalRequestHeaders);
             }
 
-            return new ScrapyHttpResponse(_banBrickHttpClient.Send(scrapyMethod.HttpMethod, requstUri, requestHeaders.ToArray(), requestContent));
+            if (!string.IsNullOrEmpty(scrapyMethod.RequestHost))
+            {
+                _banBrickHttpClient.BaseAddress = scrapyMethod.RequestHost;
+            }
+
+            var httpResponse = _banBrickHttpClient.Send(scrapyMethod.HttpMethod, requstUri, requestHeaders.ToArray(), requestContent);
+            var response = new ScrapyHttpResponse(httpResponse);
+
+            return response;
         }
 
         private HttpContent ProcessRequestContentTemplate(string template, IDictionary<string, string> parameters)

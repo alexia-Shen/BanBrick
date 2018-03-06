@@ -12,38 +12,36 @@ namespace BanBrick.Infrastructure.Scrapy
 {
     public class ScrapyProcessor
     {
-        public ScrapyFinalResult Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters)
+        public List<ScrapyResult> Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters)
         {
             var defualtHeaders = new List<HttpHeader>();
 
             if (scrapingConfiguration.UseBrowserEmulator == true)
                 defualtHeaders.AddRange(GetEmulateHeaders());
 
-            var processedReuslts = new List<ScrapyProcessResult>();
-            var autoDecompress = defualtHeaders.Any(x => x.Name.Equals("Accept-Encoding", StringComparison.CurrentCultureIgnoreCase));
+            var reuslts = new List<ScrapyResult>();
 
-            using (var httpClient = new BanBrickHttpClient(scrapingConfiguration.Host, autoDecompress))
+            using (var httpClient = new BanBrickHttpClient(scrapingConfiguration.Host, true))
             {
                 var httpProcesser = new ScrapyHttpProcesser(httpClient);
                 var resultProcesser = new ScrapyResultProcesser();
 
                 foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
                 {
-                    var processedReuslt = Process(httpProcesser, resultProcesser, scrapyMethod, defualtHeaders, paramters);
-
-                    processedReuslts.AddRange(processedReuslt.Results);
+                    reuslts.AddRange(Process(httpProcesser, resultProcesser, scrapyMethod, defualtHeaders, paramters));
                 }
             }
-            return null;
+
+            return reuslts;
         }
 
-        public ScrapyFinalResult Process(ScrapyHttpProcesser httpProcesser, ScrapyResultProcesser resultProcesser,
+        public List<ScrapyResult> Process(ScrapyHttpProcesser httpProcesser, ScrapyResultProcesser resultProcesser,
             ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders, IDictionary<string, string> paramters)
         {
             var response = httpProcesser.Process(scrapyMethod, defualtHeaders, paramters);
-            var result = resultProcesser.Process(response, scrapyMethod.Selector);
+            var results = resultProcesser.Process(response, scrapyMethod.Selectors);
 
-            if (scrapyMethod.NextScrapyMethod != null)
+            if (scrapyMethod.NextMethod != null)
             {
                 var nextParameters = new Dictionary<string, string>();
 
@@ -52,15 +50,18 @@ namespace BanBrick.Infrastructure.Scrapy
                     nextParameters[parameter.Key] = parameter.Value;
                 }
 
-                foreach (var parameter in result.Parameters)
-                {
-                    nextParameters[parameter.Key] = parameter.Value;
+                foreach (var result in results)
+                { 
+                    foreach (var parameter in result.Parameters)
+                    {
+                        nextParameters[parameter.Key] = parameter.Value;
+                    }
                 }
 
-                result = Process(httpProcesser, resultProcesser, scrapyMethod.NextScrapyMethod, defualtHeaders,  nextParameters);
+                results = Process(httpProcesser, resultProcesser, scrapyMethod.NextMethod, defualtHeaders, nextParameters);
             }
 
-            return result;
+            return results;
         }
         
         private HttpHeader[] GetEmulateHeaders()
