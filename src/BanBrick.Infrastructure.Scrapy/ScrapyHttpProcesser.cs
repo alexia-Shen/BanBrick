@@ -1,5 +1,7 @@
 ﻿using BanBrick.Infrastructure.Http;
 using BanBrick.Infrastructure.Scrapy.Models;
+using BanBrick.Services.Scraping.Enums;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace BanBrick.Infrastructure.Scrapy
             var requstUri = ProcessStringTemplate(scrapyMethod.RequestUriTemplate, paramters);
             var requestContent = ProcessRequestContentTemplate(scrapyMethod.RequestContentTemplate, paramters);
             var requestHeaders = ProcessRequestHeaderTemplate(scrapyMethod.RequestHeaderTemplate, paramters);
-
+            
             if (defualtHeaders != null)
             {
                 var addtionalRequestHeaders = defualtHeaders.Where(x => !requestHeaders.Any(y => y.Name == x.Name)).ToList();
@@ -45,14 +47,8 @@ namespace BanBrick.Infrastructure.Scrapy
         {
             var contentString = ProcessStringTemplate(template, parameters);
 
-            try
-            {
-                var json = new JObject(contentString);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            if (string.IsNullOrEmpty(contentString))
+                return new StringContent("");
 
             return new StringContent(contentString, Encoding.UTF8, "application/json");
         }
