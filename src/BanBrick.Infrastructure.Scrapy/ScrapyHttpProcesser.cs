@@ -1,6 +1,5 @@
 ﻿using BanBrick.Infrastructure.Http;
 using BanBrick.Infrastructure.Scrapy.Models;
-using BanBrick.Services.Scraping.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace BanBrick.Infrastructure.Scrapy
         /// <param name="paramters"></param>
         /// <returns>HttpResponseMessage String Content</returns>
         public ScrapyHttpResponse Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
-            IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
+            IList<ScrapyProcessResult> processedResults, IDictionary<string, string> paramters)
         {
             var autoDecompress = defualtHeaders.Any(x => x.Name.Equals("Accept-Encoding", StringComparison.CurrentCultureIgnoreCase));
 

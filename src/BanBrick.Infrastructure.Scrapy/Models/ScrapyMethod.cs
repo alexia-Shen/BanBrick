@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace BanBrick.Services.Scraping.Models
+namespace BanBrick.Infrastructure.Scrapy.Models
 {
     public class ScrapyMethod
     {

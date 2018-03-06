@@ -4,19 +4,18 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using BanBrick.Infrastructure.Scrapy.Models;
-using BanBrick.Services.Scraping.Models;
 
 namespace BanBrick.Infrastructure.Scrapy.Result
 {
     public class ScrapyResultHeaderProcesser : IScrapyResultProcesser
     {
-        public List<ScrapyResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
+        public List<ScrapyProcessResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
         {
-            var results = new List<ScrapyResult>();
+            var results = new List<ScrapyProcessResult>();
 
             foreach (var header in response.Headers)
             {
-                results.Add(new ScrapyResult()
+                results.Add(new ScrapyProcessResult()
                 {
                     Name = header.Name,
                     Value = header.Value,

@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanBrick.Services.Scraping.Models
+namespace BanBrick.Infrastructure.Scrapy.Models
 {
-    public class ScrapyResult
+    public class ScrapyProcessResult
     {
-        public ScrapyResult()
+        public ScrapyProcessResult()
         {
-            SubResults = new List<ScrapyResult>();
+            SubResults = new List<ScrapyProcessResult>();
             InternalResponse = new ScrapyHttpResponse();
         }
 
@@ -24,6 +24,6 @@ namespace BanBrick.Services.Scraping.Models
 
         public ScrapyResultType Type { get; set; }
 
-        public List<ScrapyResult> SubResults { get; set; }
+        public List<ScrapyProcessResult> SubResults { get; set; }
     }
 }

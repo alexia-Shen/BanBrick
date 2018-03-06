@@ -1,7 +1,7 @@
 ﻿using BanBrick.Infrastructure.Http;
+using BanBrick.Infrastructure.Scrapy.Models;
 using BanBrick.Infrastructure.Scrapy.Result;
 using BanBrick.Services.Scraping.Enums;
-using BanBrick.Services.Scraping.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,31 +20,31 @@ namespace BanBrick.Infrastructure.Scrapy
             _scrapyResultProcesser = new ScrapyResultProcesser();
         }
 
-        public ScrapyResult Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters)
+        public ScrapyFinalResult Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters)
         {
             var defualtHeaders = new List<HttpHeader>();
 
             if (scrapingConfiguration.UseBrowserEmulator == true)
                 defualtHeaders.AddRange(GetEmulateHeaders());
 
-            var processedReuslts = new List<ScrapyResult>();
+            var processedReuslts = new List<ScrapyProcessResult>();
 
             foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
             {
                 var processedReuslt = Process(scrapyMethod, defualtHeaders, processedReuslts, paramters);
-                processedReuslts.AddRange(processedReuslt);
+                processedReuslts.AddRange(processedReuslt.Results);
             }
 
             return null;
         }
 
-        public List<ScrapyResult> Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
-            IList<ScrapyResult> processedResults, IDictionary<string, string> paramters)
+        public ScrapyFinalResult Process(ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders,
+            IList<ScrapyProcessResult> processedResults, IDictionary<string, string> paramters)
         {
             var response = _scrapyHttpProcesser.Process(scrapyMethod, defualtHeaders, processedResults, paramters);
-            var results = _scrapyResultProcesser.Process(response, scrapyMethod.Selector);
+            var result = _scrapyResultProcesser.Process(response, scrapyMethod.Selector);
             
-            return results;
+            return result;
         }
         
         private HttpHeader[] GetEmulateHeaders()

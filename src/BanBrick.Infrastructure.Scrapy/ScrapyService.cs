@@ -1,8 +1,8 @@
 ﻿using AngleSharp.Dom.Html;
 using BanBrick.Infrastructure.Http;
 using BanBrick.Infrastructure.Http.Extensions;
+using BanBrick.Infrastructure.Scrapy.Models;
 using BanBrick.Services.Scraping.Enums;
-using BanBrick.Services.Scraping.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;

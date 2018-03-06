@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanBrick.Services.Scraping.Models
+namespace BanBrick.Infrastructure.Scrapy.Models
 {
     public class ScrapyConfiguration
     {

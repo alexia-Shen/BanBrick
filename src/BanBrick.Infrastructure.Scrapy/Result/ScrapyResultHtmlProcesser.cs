@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using AngleSharp.Parser.Html;
 using BanBrick.Infrastructure.Scrapy.Models;
 using BanBrick.Services.Scraping.Enums;
-using BanBrick.Services.Scraping.Models;
 
 namespace BanBrick.Infrastructure.Scrapy.Result
 {
@@ -18,9 +17,9 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             _htmlParser = new HtmlParser();
         }
         
-        public List<ScrapyResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
+        public List<ScrapyProcessResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
         {
-            var results = new List<ScrapyResult>();
+            var results = new List<ScrapyProcessResult>();
 
             if (string.IsNullOrEmpty(selector.Query))
             {
@@ -42,9 +41,9 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             return results;
         }
 
-        private ScrapyResult GetScrapyResult(string name, string value, ScrapyResultType type, string regex)
+        private ScrapyProcessResult GetScrapyResult(string name, string value, ScrapyResultType type, string regex)
         {
-            var result = new ScrapyResult() { Name = name, Type = type };
+            var result = new ScrapyProcessResult() { Name = name, Type = type };
 
             if (string.IsNullOrEmpty(regex)) {
                 result.Value = value;
