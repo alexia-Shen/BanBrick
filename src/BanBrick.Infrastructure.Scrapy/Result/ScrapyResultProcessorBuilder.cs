@@ -13,6 +13,7 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             Processers[SelectorSourceType.Html] = new ScrapyResultHtmlProcesser();
             Processers[SelectorSourceType.Json] = new ScrapyResultContantProcesser();
             Processers[SelectorSourceType.Constant] = new ScrapyResultJsonProcesser();
+            Processers[SelectorSourceType.Header] = new ScrapyResultHeaderProcesser();
         }
         
         public Dictionary<object, IScrapyResultProcesser> Processers { get; set; }

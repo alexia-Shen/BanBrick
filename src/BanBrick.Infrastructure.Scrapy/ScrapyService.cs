@@ -21,9 +21,9 @@ namespace BanBrick.Infrastructure.Scrapy
             searchParameters.Add("PostCode", "2134");
 
             var processer = new ScrapyProcessor();
-            //var result = processer.Process(GetUberEatsScapyConfiguration(), searchParameters);
+            var result = processer.Process(GetUberEatsScapyConfiguration(), searchParameters);
 
-            var result = processer.Process(GetMenulogScrapyConfiguration(), searchParameters);
+            //var result = processer.Process(GetMenulogScrapyConfiguration(), searchParameters);
         }
 
         private ScrapyConfiguration GetMenulogScrapyConfiguration() {
@@ -65,8 +65,8 @@ namespace BanBrick.Infrastructure.Scrapy
                         HttpMethod = HttpMethod.Get,
                         RequestHost = "https://www.ubereats.com",
                         Selector = new ScrapySelector(){
-                            Name = "Cookie",
-                            ScrapyResultType = ScrapyResultType.Object,
+                            Name = "Headers",
+                            ScrapyResultType = ScrapyResultType.Property,
                             SelectorSourceType = SelectorSourceType.Header
                         }
                     }

@@ -1,4 +1,5 @@
-﻿using BanBrick.Services.Scraping.Enums;
+﻿using BanBrick.Infrastructure.Scrapy.Models;
+using BanBrick.Services.Scraping.Enums;
 using BanBrick.Services.Scraping.Models;
 using System;
 using System.Collections.Generic;
@@ -16,20 +17,20 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             _scrapyResultProcessorBuilder = new ScrapyResultProcessorBuilder();
         }
 
-        public List<ScrapyResult> Process(HttpResponseMessage response, ScrapySelector selector)
+        public List<ScrapyResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
         {
-            var results = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType].Process(response, selector);
+            var processor = _scrapyResultProcessorBuilder.Processers[selector.SelectorSourceType];
+            var results = processor.Process(response, selector);
 
             if (selector.SubSelectors.Count > 0)
             {
                 foreach (var subSelector in selector.SubSelectors)
                 {
+                    var subProcessor = _scrapyResultProcessorBuilder.Processers[subSelector.SelectorSourceType];
+
                     foreach (var result in results)
                     {
-                        var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) {
-                            Content = new StringContent(result.Value)
-                        };
-                        result.SubResults.AddRange(Process(responseMessage, subSelector));
+                        result.SubResults.AddRange(subProcessor.Process(result.InternalResponse, subSelector));
                     }
                 }
             }

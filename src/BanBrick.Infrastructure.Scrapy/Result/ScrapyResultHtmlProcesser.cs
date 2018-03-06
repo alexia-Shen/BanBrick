@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using AngleSharp.Parser.Html;
+using BanBrick.Infrastructure.Scrapy.Models;
 using BanBrick.Services.Scraping.Enums;
 using BanBrick.Services.Scraping.Models;
 
@@ -17,23 +18,18 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             _htmlParser = new HtmlParser();
         }
         
-        public List<ScrapyResult> Process(HttpResponseMessage response, ScrapySelector selector)
-        {
-            return Process(response.Content.ReadAsStringAsync().Result, selector);
-        }
-
-        private List<ScrapyResult> Process(string content, ScrapySelector selector)
+        public List<ScrapyResult> Process(ScrapyHttpResponse response, ScrapySelector selector)
         {
             var results = new List<ScrapyResult>();
 
             if (string.IsNullOrEmpty(selector.Query))
             {
-                var result = GetScrapyResult(selector.Name, content, selector.ScrapyResultType, selector.Regex);
+                var result = GetScrapyResult(selector.Name, response.Content, selector.ScrapyResultType, selector.Regex);
                 results.Add(result);
             }
             else
             {
-                var document = _htmlParser.Parse(content);
+                var document = _htmlParser.Parse(response.Content);
                 var nodes = document.QuerySelectorAll(selector.Query);
 
                 for (int index = 0; index < nodes.Length; index++)
@@ -57,6 +53,8 @@ namespace BanBrick.Infrastructure.Scrapy.Result
                 var matches = reg.Match(value);
                 result.Value = matches.Groups[name].Value;
             }
+
+            result.InternalResponse = new ScrapyHttpResponse(result.Value);
 
             return result;
         }
