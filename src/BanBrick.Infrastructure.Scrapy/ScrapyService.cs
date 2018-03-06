@@ -67,7 +67,17 @@ namespace BanBrick.Infrastructure.Scrapy
                         Selector = new ScrapySelector(){
                             Name = "Headers",
                             ScrapyResultType = ScrapyResultType.Property,
-                            SelectorSourceType = SelectorSourceType.Header
+                            SelectorSourceType = SelectorSourceType.Header,
+                            AddToParameters = true
+                        },
+                        NextScrapyMethod = new ScrapyMethod() {
+                            HttpMethod = HttpMethod.Post,
+                            RequestHost = "https://www.ubereats.com",
+                            Selector = new ScrapySelector() {
+                                Name = "Restrants",
+                                ScrapyResultType = ScrapyResultType.Object,
+                                SelectorSourceType = SelectorSourceType.Json
+                            }
                         }
                     }
                 }

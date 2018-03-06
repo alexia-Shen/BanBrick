@@ -17,6 +17,8 @@ namespace BanBrick.Services.Scraping.Models
         public string Name { get; set; }
 
         public string Regex { get; set; }
+        
+        public bool AddToParameters { get; set; }
 
         public SelectorSourceType SelectorSourceType { get; set; }
 

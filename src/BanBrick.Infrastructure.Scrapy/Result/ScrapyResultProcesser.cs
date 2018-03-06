@@ -13,7 +13,8 @@ namespace BanBrick.Infrastructure.Scrapy.Result
     {
         private ScrapyResultProcessorBuilder _scrapyResultProcessorBuilder;
 
-        public ScrapyResultProcesser() {
+        public ScrapyResultProcesser()
+        {
             _scrapyResultProcessorBuilder = new ScrapyResultProcessorBuilder();
         }
 
@@ -26,11 +27,9 @@ namespace BanBrick.Infrastructure.Scrapy.Result
             {
                 foreach (var subSelector in selector.SubSelectors)
                 {
-                    var subProcessor = _scrapyResultProcessorBuilder.Processers[subSelector.SelectorSourceType];
-
                     foreach (var result in results)
                     {
-                        result.SubResults.AddRange(subProcessor.Process(result.InternalResponse, subSelector));
+                        result.SubResults.AddRange(Process(result.InternalResponse, subSelector));
                     }
                 }
             }
