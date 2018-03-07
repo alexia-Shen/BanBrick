@@ -66,7 +66,7 @@ namespace BanBrick.Infrastructure.Scrapy
                                         SourceType = ScrapySourceType.Html,
                                         ResultType = ScrapyResultType.Property,
                                         Query = ".mediaElement.listing-item-link",
-                                        Regex = "href=\"(?'Uri'.*)\" data-gtm=\"serp|click-listing|66\""
+                                        Regex = "href=\"(?'Uri'[^\"]*)\"(( class=\")|( data-gtm=\"))"
                                     },
                                     new ScrapySelector() {
                                         Name = "RatingValue",
