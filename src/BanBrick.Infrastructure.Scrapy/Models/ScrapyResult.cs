@@ -1,4 +1,5 @@
 ﻿using BanBrick.Infrastructure.Scraping.Enums;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,5 +24,9 @@ namespace BanBrick.Infrastructure.Scrapy.Models
         public Dictionary<string, string> Parameters { get; set; }
 
         public List<ScrapyResult> SubResults { get; set; }
+
+        public JObject ToJson() {
+            return new JObject(new JProperty(Name, Value));
+        }
     }
 }

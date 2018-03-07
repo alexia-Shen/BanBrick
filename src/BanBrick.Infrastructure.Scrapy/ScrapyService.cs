@@ -49,6 +49,7 @@ namespace BanBrick.Infrastructure.Scrapy
                                 SubSelectors = new List<ScrapySelector>() {
                                     new ScrapySelector() {
                                         Name = "TotalRating",
+                                        DefaultValue = "0",
                                         IsParameter = true,
                                         IsSingle = true,
                                         SourceType = ScrapySourceType.Html,

@@ -18,6 +18,8 @@ namespace BanBrick.Infrastructure.Scrapy.Models
 
         public string Regex { get; set; }
         
+        public string DefaultValue { get; set; }
+
         public bool IsParameter { get; set; }
 
         public bool IsSingle { get; set; }

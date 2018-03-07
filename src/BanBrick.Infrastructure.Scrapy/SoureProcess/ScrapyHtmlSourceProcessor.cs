@@ -61,6 +61,9 @@ namespace BanBrick.Infrastructure.Scrapy.SourceProcess
                 result.Value = matches.Groups[selector.Name].Value;
             }
 
+            if (string.IsNullOrEmpty(result.Value))
+                result.Value = selector.DefaultValue;
+
             result.ProcessedResponse = new ScrapyResponse(result.Value, headers);
 
             return result;
