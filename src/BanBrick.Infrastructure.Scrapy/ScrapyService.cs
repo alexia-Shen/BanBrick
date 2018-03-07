@@ -32,7 +32,7 @@ namespace BanBrick.Infrastructure.Scrapy
                 results = processor.Process(GetMenulogScrapyConfiguration(), searchParameters, GetEmulateHeaders());
             }
 
-            var a = JsonConvert.SerializeObject(results[0].ToJson());
+            var a = JsonConvert.SerializeObject(results[0].SubResults[0].ToJson());
         }
 
         private ScrapyConfiguration GetMenulogScrapyConfiguration()
@@ -52,6 +52,22 @@ namespace BanBrick.Infrastructure.Scrapy
                                 ResultType = ScrapyResultType.Object,
                                 Query = ".listing-item[data-test-id=listingItem]",
                                 SubSelectors = new List<ScrapySelector>() {
+                                     new ScrapySelector() {
+                                        Name = "Name",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = "h3[itemprop=name]",
+                                        Regex = ">(?'Name'.*)<\\/h3>"
+                                    },
+                                     new ScrapySelector() {
+                                        Name = "Uri",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = ".mediaElement.listing-item-link",
+                                        Regex = "href=\"(?'Uri'.*)\" data-gtm=\"serp|click-listing|66\""
+                                    },
                                     new ScrapySelector() {
                                         Name = "RatingValue",
                                         DefaultValue = "0",
@@ -93,7 +109,7 @@ namespace BanBrick.Infrastructure.Scrapy
                                         SourceType = ScrapySourceType.Html,
                                         ResultType = ScrapyResultType.Property,
                                         Query = "img[itemprop=image][data-lazy-image-src]",
-                                        Regex = ".*"
+                                        Regex = "src=\"\\/\\/(?'Image'.*)\" alt"
                                     }
                                 }
                             }
@@ -103,8 +119,6 @@ namespace BanBrick.Infrastructure.Scrapy
             };
         }
 
-        //RequestUriTemplate = "/rtapi/eats/v2/marketplaces",
-        //RequestContentTemplate = "{\"targetLocation\":{\"latitude\":-33.8688197,\"longitude\":151.2092955,\"reference\":\"ChIJP5iLHkCuEmsRwMwyFmh9AQU\",\"type\":\"google_places\",\"address\":{\"title\":\"Sydney\",\"address1\":\"Sydney NSW 2000\",\"city\":\"Sydney\"}},\"hashes\":{\"stores\":\"\"},\"feed\":\"combo\",\"feedTypes\":[\"STORE\",\"SEE_ALL_STORES\"],\"feedVersion\":2}",
         private ScrapyConfiguration GetUberEatsScapyConfiguration()
         {
             return new ScrapyConfiguration()
