@@ -18,7 +18,8 @@ namespace BanBrick.Infrastructure.Scrapy.SourceProcess
                 results.Add(new ScrapyResult()
                 {
                     Name = header.Name,
-                    Value = header.Value
+                    Value = header.Value,
+                    ResultType = selector.ResultType
                 });
             }
 
