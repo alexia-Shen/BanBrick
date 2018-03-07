@@ -17,20 +17,8 @@ namespace BanBrick.Infrastructure.Scrapy.ResultProcess
         {
             _scrapySourceProcessorBuilder = new ScrapySourceProcessorFactory();
         }
-
-        public List<ScrapyResult> Process(ScrapyResponse response, IEnumerable<ScrapySelector> selectors)
-        {
-            var results = new List<ScrapyResult>();
-
-            foreach (var selector in selectors)
-            {
-                results.Add(Process(response, selector));
-            }
-
-            return results;
-        }
         
-        private ScrapyResult Process(ScrapyResponse response, ScrapySelector selector)
+        public ScrapyResult Process(ScrapyResponse response, ScrapySelector selector)
         {
             var results = GetResults(response, selector);
             var parameters = GetParameters(results, selector);

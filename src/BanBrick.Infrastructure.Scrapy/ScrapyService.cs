@@ -24,7 +24,7 @@ namespace BanBrick.Infrastructure.Scrapy
 
             var templateProcessor = new ScrapyTemplateProcessor();
             var resultProcessor = new ScrapyResultProcessor();
-            var results = new List<ScrapyResult>();
+            var results = new Dictionary<string, ScrapyResult>();
 
             using (var httpProcessor = new ScrapyHttpProcessor(templateProcessor))
             {
@@ -32,7 +32,7 @@ namespace BanBrick.Infrastructure.Scrapy
                 results = processor.Process(GetMenulogScrapyConfiguration(), searchParameters, GetEmulateHeaders());
             }
 
-            var a = JsonConvert.SerializeObject(results[0].SubResults[0].ToJson());
+            var a = JsonConvert.SerializeObject(results["GetResturants"].ToJson());
         }
 
         private ScrapyConfiguration GetMenulogScrapyConfiguration()
@@ -45,8 +45,7 @@ namespace BanBrick.Infrastructure.Scrapy
                         HttpMethod = HttpMethod.Get,
                         RequestUriTemplate = "/area/{{PostCode}}-{{Suburb}}/",
                         Name = "GetResturants",
-                        Selectors = new List<ScrapySelector>() {
-                            new ScrapySelector() {
+                        Selector = new ScrapySelector() {
                                 Name = "Resturants",
                                 SourceType = ScrapySourceType.Html,
                                 ResultType = ScrapyResultType.Object,
@@ -112,7 +111,6 @@ namespace BanBrick.Infrastructure.Scrapy
                                         Regex = "src=\"\\/\\/(?'Image'.*)\" alt"
                                     }
                                 }
-                            }
                         }
                     }
                 }
@@ -127,32 +125,29 @@ namespace BanBrick.Infrastructure.Scrapy
                 ScrapyMethods = new List<ScrapyMethod>() {
                     new ScrapyMethod() {
                         HttpMethod = HttpMethod.Get,
-                        Selectors = new List<ScrapySelector>() {
-                            new ScrapySelector() {
-                                Name = "Headers",
-                                SourceType = ScrapySourceType.Header,
-                                ResultType = ScrapyResultType.Property,
-                                IsParameter = true
-                            }
+                        Name = "GetResturants",
+                        Selector = new ScrapySelector() {
+                            Name = "Headers",
+                            SourceType = ScrapySourceType.Header,
+                            ResultType = ScrapyResultType.Property,
+                            IsParameter = true
                         },
                         NextMethod = new ScrapyMethod() {
                             HttpMethod = HttpMethod.Post,
                             RequestUriTemplate = "/rtapi/eats/v1/allstores?plugin=StorefrontFeedPlugin",
                             RequestHeaderTemplate = "{\"Host\":\"www.ubereats.com\", \"Origin\":\"https://www.ubereats.com\", \"Referer\":\"https://www.ubereats.com/stores/\", \"x-csrf-token\": \"{{Headers.x-csrf-token}}\"}",
                             RequestContentTemplate = "{\"pageInfo\":{\"offset\":0,\"pageSize\":80},\"targetLocation\":{\"latitude\":-33.8688197,\"longitude\":151.2092955,\"reference\":\"ChIJP5iLHkCuEmsRwMwyFmh9AQU\",\"type\":\"google_places\",\"address\":{\"title\":\"Sydney\",\"address1\":\"Sydney NSW 2000\",\"city\":\"Sydney\"}}}",
-                            Selectors = new List<ScrapySelector>() {
-                                new ScrapySelector() {
-                                    Name = "Restrants",
-                                    SourceType = ScrapySourceType.Json,
-                                    ResultType = ScrapyResultType.Object
-                                }
+                            Selector = new ScrapySelector() {
+                                Name = "Restrants",
+                                SourceType = ScrapySourceType.Json,
+                                ResultType = ScrapyResultType.Object
                             }
                         }
                     }
                 }
             };
         }
-        
+
         private HttpHeader[] GetEmulateHeaders()
         {
             var connection = new HttpHeader("Connection", "keep-alive");

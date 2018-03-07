@@ -22,15 +22,15 @@ namespace BanBrick.Infrastructure.Scrapy
             _resultProcessor = resultProcessor;
         }
 
-        public List<ScrapyResult> Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters, IEnumerable<HttpHeader> defaultHeaders)
+        public Dictionary<string, ScrapyResult> Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters, IEnumerable<HttpHeader> defaultHeaders)
         {
-            var reuslts = new List<ScrapyResult>();
+            var reuslts = new Dictionary<string, ScrapyResult>();
             
             _httpProcessor.Host = scrapingConfiguration.Host;
 
             foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
             {
-                reuslts.Add(Process(scrapyMethod, paramters, defaultHeaders));
+                reuslts[scrapyMethod.Name] = Process(scrapyMethod, paramters, defaultHeaders);
             }
 
             return reuslts;
@@ -39,7 +39,7 @@ namespace BanBrick.Infrastructure.Scrapy
         public ScrapyResult Process(ScrapyMethod scrapyMethod, IDictionary<string, string> paramters, IEnumerable<HttpHeader> defaultHeaders)
         {
             var response = _httpProcessor.Process(scrapyMethod, paramters, defaultHeaders);
-            var results = _resultProcessor.Process(response, scrapyMethod.Selectors);
+            var result = _resultProcessor.Process(response, scrapyMethod.Selector);
 
             if (scrapyMethod.NextMethod != null)
             {
@@ -50,26 +50,15 @@ namespace BanBrick.Infrastructure.Scrapy
                     nextParameters[parameter.Key] = parameter.Value;
                 }
 
-                foreach (var result in results)
-                { 
-                    foreach (var parameter in result.Parameters)
-                    {
-                        nextParameters[parameter.Key] = parameter.Value;
-                    }
+                foreach (var parameter in result.Parameters)
+                {
+                    nextParameters[parameter.Key] = parameter.Value;
                 }
 
-                results = Process(scrapyMethod.NextMethod, nextParameters, defaultHeaders).SubResults;
+                result = Process(scrapyMethod.NextMethod, nextParameters, defaultHeaders);
             }
-
-            var finalResult = new ScrapyResult()
-            {
-                Name = scrapyMethod.Name,
-                Value = response.BodyContent,
-                SubResults = results,
-                ResultType = ScrapyResultType.List
-            };
-
-            return finalResult;
+            
+            return result;
         }
     }
 }
