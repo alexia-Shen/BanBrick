@@ -1,7 +1,9 @@
 ﻿using BanBrick.Infrastructure.Scraping.Enums;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BanBrick.Infrastructure.Scrapy.Models
@@ -25,8 +27,18 @@ namespace BanBrick.Infrastructure.Scrapy.Models
 
         public List<ScrapyResult> SubResults { get; set; }
 
-        public JObject ToJson() {
-            return new JObject(new JProperty(Name, Value));
+        public object ToJson() {
+            switch (ResultType)
+            {
+                case ScrapyResultType.Property:
+                    return new JProperty(Name, Value);
+                case ScrapyResultType.Object:
+                    return new JObject(SubResults.Select(x => x.ToJson()));
+                case ScrapyResultType.List:
+                    return new JArray(SubResults.Select(x => x.ToJson()));
+            }
+
+            return null;
         }
     }
 }

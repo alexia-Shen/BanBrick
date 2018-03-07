@@ -32,7 +32,7 @@ namespace BanBrick.Infrastructure.Scrapy.SourceProcess
                     value = nodes.Length > 0 ? nodes[0].OuterHtml : "";
                 }
 
-                var result = GetScrapyResult(selector.Name, response.BodyContent, response.HttpHeaders, selector);
+                var result = GetScrapyResult(selector.Name, value, response.HttpHeaders, selector);
                 results.Add(result);
             }
             else

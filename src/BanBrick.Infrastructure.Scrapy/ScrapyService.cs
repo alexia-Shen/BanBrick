@@ -3,6 +3,7 @@ using BanBrick.Infrastructure.Scraping.Enums;
 using BanBrick.Infrastructure.Scrapy.HttpProcess;
 using BanBrick.Infrastructure.Scrapy.Models;
 using BanBrick.Infrastructure.Scrapy.ResultProcess;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,11 +24,15 @@ namespace BanBrick.Infrastructure.Scrapy
 
             var templateProcessor = new ScrapyTemplateProcessor();
             var resultProcessor = new ScrapyResultProcessor();
+            var results = new List<ScrapyResult>();
+
             using (var httpProcessor = new ScrapyHttpProcessor(templateProcessor))
             {
                 var processor = new ScrapyProcessor(httpProcessor, resultProcessor);
-                var results = processor.Process(GetMenulogScrapyConfiguration(), searchParameters, GetEmulateHeaders());
+                results = processor.Process(GetMenulogScrapyConfiguration(), searchParameters, GetEmulateHeaders());
             }
+
+            var a = JsonConvert.SerializeObject(results[0].ToJson());
         }
 
         private ScrapyConfiguration GetMenulogScrapyConfiguration()
@@ -45,17 +50,50 @@ namespace BanBrick.Infrastructure.Scrapy
                                 Name = "Resturants",
                                 SourceType = ScrapySourceType.Html,
                                 ResultType = ScrapyResultType.Object,
-                                Query = ".listing-item",
+                                Query = ".listing-item[data-test-id=listingItem]",
                                 SubSelectors = new List<ScrapySelector>() {
                                     new ScrapySelector() {
-                                        Name = "TotalRating",
+                                        Name = "RatingValue",
                                         DefaultValue = "0",
-                                        IsParameter = true,
                                         IsSingle = true,
                                         SourceType = ScrapySourceType.Html,
                                         ResultType = ScrapyResultType.Property,
                                         Query = "meta[itemprop=ratingValue]",
+                                        Regex = "content=\"(?'RatingValue'.*)\""
+                                    },
+                                    new ScrapySelector() {
+                                        Name = "TotalRating",
+                                        DefaultValue = "0",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = "meta[itemprop=bestRating]",
                                         Regex = "content=\"(?'TotalRating'.*)\""
+                                    },
+                                    new ScrapySelector() {
+                                        Name = "RatingCount",
+                                        DefaultValue = "0",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = "meta[itemprop=ratingCount]",
+                                        Regex = "content=\"(?'RatingCount'.*)\""
+                                    },
+                                    new ScrapySelector() {
+                                        Name = "Address",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = "p[itemprop=address]",
+                                        Regex = ">(?'Address'.*)<\\/p>"
+                                    },
+                                    new ScrapySelector() {
+                                        Name = "Image",
+                                        IsSingle = true,
+                                        SourceType = ScrapySourceType.Html,
+                                        ResultType = ScrapyResultType.Property,
+                                        Query = "img[itemprop=image][data-lazy-image-src]",
+                                        Regex = ".*"
                                     }
                                 }
                             }

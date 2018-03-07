@@ -52,9 +52,9 @@ namespace BanBrick.Infrastructure.Scrapy.ResultProcess
 
             if (selector.SubSelectors.Count() > 0)
             {
-                foreach (var subSelector in selector.SubSelectors)
+                foreach (var result in results)
                 {
-                    foreach (var result in results)
+                    foreach (var subSelector in selector.SubSelectors)
                     {
                         var subResults = GetResults(result.ProcessedResponse, subSelector);
                         result.SubResults.AddRange(subResults);
