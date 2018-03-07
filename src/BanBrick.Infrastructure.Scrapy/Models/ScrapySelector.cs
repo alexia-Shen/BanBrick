@@ -1,4 +1,4 @@
-﻿using BanBrick.Services.Scraping.Enums;
+﻿using BanBrick.Infrastructure.Scraping.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,12 +18,14 @@ namespace BanBrick.Infrastructure.Scrapy.Models
 
         public string Regex { get; set; }
         
-        public bool AddToParameters { get; set; }
+        public bool IsParameter { get; set; }
 
-        public SelectorSourceType SelectorSourceType { get; set; }
+        public bool IsSingle { get; set; }
 
-        public ScrapyResultType ScrapyResultType { get; set; }
+        public ScrapySourceType SourceType { get; set; }
         
-        public IList<ScrapySelector> SubSelectors { get; set; }
+        public ScrapyResultType ResultType { get; set; }
+
+        public List<ScrapySelector> SubSelectors { get; set; }
     }
 }

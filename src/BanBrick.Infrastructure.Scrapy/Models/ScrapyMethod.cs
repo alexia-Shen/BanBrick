@@ -1,5 +1,4 @@
-﻿using BanBrick.Services.Scraping.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -11,6 +10,8 @@ namespace BanBrick.Infrastructure.Scrapy.Models
         public ScrapyMethod() {
             Selectors = new List<ScrapySelector>();
         }
+
+        public string Name { get; set; }
 
         public HttpMethod HttpMethod { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanBrick.Services.Scraping.Enums
+namespace BanBrick.Infrastructure.Scraping.Enums
 {
     public enum ScrapyResultType
     {

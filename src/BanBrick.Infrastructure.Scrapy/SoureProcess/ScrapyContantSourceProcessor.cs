@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Text;
 using BanBrick.Infrastructure.Scrapy.Models;
 
-namespace BanBrick.Infrastructure.Scrapy.Result
+namespace BanBrick.Infrastructure.Scrapy.SourceProcess
 {
-    public class ScrapyResultContantProcesser : IScrapyResultProcesser
+    public class ScrapyContantSourceProcessor : IScrapySourceProcessor
     {
-        public List<ScrapyProcessResult> Process(ScrapyHttpResponse content, ScrapySelector selector)
+        public List<ScrapyResult> Process(ScrapyResponse content, ScrapySelector selector)
         {
             throw new NotImplementedException();
         }

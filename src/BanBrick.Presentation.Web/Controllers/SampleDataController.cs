@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BanBrick.Infrastructure.Repositories;
 using BanBrick.Infrastructure.Scrapy;
-using BanBrick.Services.Scraping;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BanBrick.Presentation.WebSite.Controllers

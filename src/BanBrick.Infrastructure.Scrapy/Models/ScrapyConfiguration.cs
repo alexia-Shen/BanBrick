@@ -1,5 +1,4 @@
-﻿using BanBrick.Services.Scraping.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,8 +13,6 @@ namespace BanBrick.Infrastructure.Scrapy.Models
 
         public string Host;
 
-        public IList<ScrapyMethod> ScrapyMethods { get; set; }
-        
-        public bool UseBrowserEmulator { get; set; }
+        public List<ScrapyMethod> ScrapyMethods { get; set; }
     }
 }

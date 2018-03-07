@@ -1,45 +1,45 @@
 ﻿using BanBrick.Infrastructure.Http;
+using BanBrick.Infrastructure.Scrapy.ResultProcess;
+using BanBrick.Infrastructure.Scrapy.HttpProcess;
 using BanBrick.Infrastructure.Scrapy.Models;
-using BanBrick.Infrastructure.Scrapy.Result;
-using BanBrick.Services.Scraping.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using BanBrick.Infrastructure.Scraping.Enums;
 
 namespace BanBrick.Infrastructure.Scrapy
 {
     public class ScrapyProcessor
     {
-        public List<ScrapyResult> Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters)
+        private IScrapyHttpProcessor _httpProcessor;
+        private IScrapyResultProcessor _resultProcessor;
+
+        public ScrapyProcessor(IScrapyHttpProcessor httpProcessor, IScrapyResultProcessor resultProcessor)
         {
-            var defualtHeaders = new List<HttpHeader>();
+            _httpProcessor = httpProcessor;
+            _resultProcessor = resultProcessor;
+        }
 
-            if (scrapingConfiguration.UseBrowserEmulator == true)
-                defualtHeaders.AddRange(GetEmulateHeaders());
-
+        public List<ScrapyResult> Process(ScrapyConfiguration scrapingConfiguration, IDictionary<string, string> paramters, IEnumerable<HttpHeader> defaultHeaders)
+        {
             var reuslts = new List<ScrapyResult>();
+            
+            _httpProcessor.Host = scrapingConfiguration.Host;
 
-            using (var httpClient = new BanBrickHttpClient(scrapingConfiguration.Host, true))
+            foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
             {
-                var httpProcesser = new ScrapyHttpProcesser(httpClient);
-                var resultProcesser = new ScrapyResultProcesser();
-
-                foreach (var scrapyMethod in scrapingConfiguration.ScrapyMethods)
-                {
-                    reuslts.AddRange(Process(httpProcesser, resultProcesser, scrapyMethod, defualtHeaders, paramters));
-                }
+                reuslts.Add(Process(scrapyMethod, paramters, defaultHeaders));
             }
 
             return reuslts;
         }
 
-        public List<ScrapyResult> Process(ScrapyHttpProcesser httpProcesser, ScrapyResultProcesser resultProcesser,
-            ScrapyMethod scrapyMethod, IList<HttpHeader> defualtHeaders, IDictionary<string, string> paramters)
+        public ScrapyResult Process(ScrapyMethod scrapyMethod, IDictionary<string, string> paramters, IEnumerable<HttpHeader> defaultHeaders)
         {
-            var response = httpProcesser.Process(scrapyMethod, defualtHeaders, paramters);
-            var results = resultProcesser.Process(response, scrapyMethod.Selectors);
+            var response = _httpProcessor.Process(scrapyMethod, paramters, defaultHeaders);
+            var results = _resultProcessor.Process(response, scrapyMethod.Selectors);
 
             if (scrapyMethod.NextMethod != null)
             {
@@ -58,21 +58,18 @@ namespace BanBrick.Infrastructure.Scrapy
                     }
                 }
 
-                results = Process(httpProcesser, resultProcesser, scrapyMethod.NextMethod, defualtHeaders, nextParameters);
+                results = Process(scrapyMethod.NextMethod, nextParameters, defaultHeaders).SubResults;
             }
 
-            return results;
-        }
-        
-        private HttpHeader[] GetEmulateHeaders()
-        {
-            var connection = new HttpHeader("Connection", "keep-alive");
-            var userAgent = new HttpHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36");
-            var accept = new HttpHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-            var acceptEncoding = new HttpHeader("Accept-Encoding", "gzip, deflate");
-            var acceptLanguage = new HttpHeader("Accept-Language", "en-GB,en;q=0.9,en-US;q=0.8,zh-CN;q=0.7,zh;q=0.6,zh-TW;q=0.5");
+            var finalResult = new ScrapyResult()
+            {
+                Name = scrapyMethod.Name,
+                Value = response.BodyContent,
+                SubResults = results,
+                ResultType = ScrapyResultType.List
+            };
 
-            return new HttpHeader[] { connection, userAgent, accept, acceptEncoding, acceptLanguage };
+            return finalResult;
         }
     }
 }
